@@ -1,4 +1,5 @@
 # Teste Flutter - Salcisne
+**important**: *Antes* de rodar o aplicativo, *troque a URL dos clients para seu backend java.* Por quê? Caso você esteja rodando o projeto em um emulador, este emulador não terá acesso à seu localhost, então problemas poderão surgir.
 
 ## Introdução
 
