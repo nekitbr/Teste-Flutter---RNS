@@ -12,6 +12,13 @@ class SidebarWidget extends StatelessWidget  {
 
   const SidebarWidget({Key key, @required this.navigateTo}) : super(key: key);
 
+  void handleSelectOption(BuildContext context, int optionIndex, Widget page, String title) {
+    BlocProvider.of<SidebarBloc>(context).add(SidebarSelectItemEvent(optionIndex));
+    BlocProvider.of<SidebarBloc>(context).add(SidebarCloseEvent());
+    Navigator.pop(context);
+    navigateTo(page, title);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -22,36 +29,24 @@ class SidebarWidget extends StatelessWidget  {
             child: ListView(
               children: [
                 UserAccountsDrawerHeader(
-                  accountEmail: Text("josedallasta9@gmail.com"),
+                  accountEmail: Text('josedallasta9@gmail.com'),
                   accountName: Text("José Dall'Asta"),
                   currentAccountPicture: InkWell(
-                    onTap: () {
-                      BlocProvider.of<SidebarBloc>(context).add(SidebarSelectItemEvent(0));
-                      BlocProvider.of<SidebarBloc>(context).add(SidebarCloseEvent());
-                      navigateTo(HomePage(), "");
-                    },
+                    onTap: () => handleSelectOption(context, 0, HomePage(), ''),
                     child: CircleAvatar(child: Icon(Icons.person))
                   ),
                 ),
                 ListTile(
                   leading: Icon(Icons.view_list_rounded),
-                  title: Text("Produtos"),
-                  selected: state.selectedIndex == 0,
-                  onTap: () {
-                    BlocProvider.of<SidebarBloc>(context).add(SidebarSelectItemEvent(0));
-                    BlocProvider.of<SidebarBloc>(context).add(SidebarCloseEvent());
-                    navigateTo(ListaProdutosPage(), "Lista de Produtos");
-                  }
+                  title: Text('Lista de Produtos'),
+                  selected: state.selectedIndex == 1,
+                  onTap: () => handleSelectOption(context, 1, ListaProdutosPage(), 'Lista de Produtos')
                 ),
                 ListTile(
                   leading: Icon(Icons.warehouse_outlined),
-                  title: Text("Produtos em Estoque"),
-                  selected: state.selectedIndex == 1,
-                  onTap: () {
-                    BlocProvider.of<SidebarBloc>(context).add(SidebarSelectItemEvent(1));
-                    BlocProvider.of<SidebarBloc>(context).add(SidebarCloseEvent());
-                    navigateTo(ListaEstoquesPage(), "Lista de Estoques");
-                  }
+                  title: Text('Lista de Estoques'),
+                  selected: state.selectedIndex == 2,
+                  onTap: () => handleSelectOption(context, 2, ListaEstoquesPage(), 'Lista de Estoques')
                 ),
               ],
             ),
