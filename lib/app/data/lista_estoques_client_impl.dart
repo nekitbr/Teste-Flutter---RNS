@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import '../domain/client/lista_estoques_client.dart';
 
 class EstoquesClientImpl implements EstoquesClient {
-  final String url = 'http://192.168.0.185:8080/estoques';
+  final String url = 'http://localhost:8080/estoques';
   var client = http.Client();
 
   @override
